@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "commonjs",
+    "baseUrl": "src",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": ["es6", "dom", "esnext.asynciterable"],
+    "downlevelIteration": true,
+    "strict": true
+  },
+  "include": ["src/**/*.ts", ".env"],
+  "exclude": ["node_modules", "test"]
+}

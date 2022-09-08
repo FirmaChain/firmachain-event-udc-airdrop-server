@@ -1,0 +1,6 @@
+{
+  "watch": ["src", ".env"],
+  "ext": "js,ts,json",
+  "exec": "ts-node -r ./src/server.ts",
+  "ignore": ["src/scheduler.ts"]
+}
