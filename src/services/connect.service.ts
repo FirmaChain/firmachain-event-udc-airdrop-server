@@ -40,7 +40,7 @@ export class ConnectService {
     try {
       const response: ResponseQRCodeData = await this.requestService.requestPost<ResponseQRCodeData>(
         `/v1/projects/sign`,
-        { type: 0, signer: '', message, info, argument: {}, isMultiple: true },
+        { qrType: 0, type: 0, signer: '', message, info, argument: {}, isMultiple: true },
         { authorization: `Bearer ${session.projectKey}` }
       );
 
