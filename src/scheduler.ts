@@ -7,7 +7,8 @@ import StoreService from './services/store.service';
 import { logger } from './utils/logger';
 import { getNowTime } from './utils/date';
 
-import { AIRDROP_QUEUE, AIRDROP_RESULT, AIRDROP_AMOUNT, MNEMONIC } from './constants/airdrop';
+import { AIRDROP_QUEUE, AIRDROP_RESULT, AIRDROP_AMOUNT, MNEMONIC, SECRET } from './constants/airdrop';
+import { getDecryptString } from './utils/crypto';
 
 const REDIS = process.env.REDIS!;
 const REDIS_PASS = process.env.REDIS_PASS!;
@@ -31,7 +32,8 @@ class AirdropScheduler {
       if (address !== null) {
         logger.info(`🚀[AIRDROP] SEND START ${address}`);
 
-        const airdropWallet = await this.firmaSDK.Wallet.fromMnemonic(MNEMONIC);
+        const decryptMnemonic = getDecryptString(MNEMONIC, SECRET);
+        const airdropWallet = await this.firmaSDK.Wallet.fromMnemonic(decryptMnemonic);
         const result = await this.firmaSDK.Bank.send(airdropWallet, address, Number(AIRDROP_AMOUNT));
 
         if (result.code !== 0) {
