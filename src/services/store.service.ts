@@ -3,7 +3,10 @@ import { createClient } from 'redis';
 import { logger } from '../utils/logger';
 
 class StoreService {
-  constructor(public config: { url: string }, public client = createClient({ url: config.url })) {
+  constructor(
+    public config: { url: string; password: string },
+    public client = createClient({ url: config.url, password: config.password })
+  ) {
     this.initialize();
   }
 
