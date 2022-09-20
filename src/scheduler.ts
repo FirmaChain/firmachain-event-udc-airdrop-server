@@ -10,9 +10,13 @@ import { getNowTime } from './utils/date';
 import { AIRDROP_QUEUE, AIRDROP_RESULT, AIRDROP_AMOUNT, MNEMONIC } from './constants/airdrop';
 
 const REDIS = process.env.REDIS!;
+const REDIS_PASS = process.env.REDIS_PASS!;
 
 class AirdropScheduler {
-  constructor(private storeService = new StoreService({ url: REDIS }), private firmaSDK = new FirmaSDK(FIRMA_CONFIG)) {
+  constructor(
+    private storeService = new StoreService({ url: REDIS, password: REDIS_PASS }),
+    private firmaSDK = new FirmaSDK(FIRMA_CONFIG)
+  ) {
     this.start();
   }
 
