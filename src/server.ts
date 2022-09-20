@@ -12,7 +12,7 @@ dotenv.config();
 
 validateEnv();
 
-const storeService = new StoreService({ url: process.env.REDIS! });
+const storeService = new StoreService({ url: process.env.REDIS!, password: process.env.REDIS_PASS! });
 
 const app = new App([new IndexRoute(), new AirdropRoute(storeService)]);
 
