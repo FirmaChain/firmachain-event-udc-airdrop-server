@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@firmachain/firma-js": "^0.2.43",
+    "@types/node-telegram-bot-api": "^0.57.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
@@ -25,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
+    "node-telegram-bot-api": "^0.59.0",
     "redis": "^4.2.0",
     "uuid": "^8.3.2",
     "winston": "^3.8.1",

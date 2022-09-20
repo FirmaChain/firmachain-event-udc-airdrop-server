@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import TelegramBot from 'node-telegram-bot-api';
 import { FirmaSDK } from '@firmachain/firma-js';
 import { FIRMA_CONFIG } from './config';
 import StoreService from './services/store.service';
@@ -12,6 +13,11 @@ import { getDecryptString } from './utils/crypto';
 
 const REDIS = process.env.REDIS!;
 const REDIS_PASS = process.env.REDIS_PASS!;
+const BOT_TOKEN = process.env.BOT_TOKEN!;
+const CHAT_ID = process.env.CHAT_ID!;
+const EXPLORER_HOST = process.env.EXPLORER_HOST!;
+
+const telegrambot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 class AirdropScheduler {
   constructor(
@@ -39,10 +45,21 @@ class AirdropScheduler {
         if (result.code !== 0) {
           logger.info(`🚀[AIRDROP] !!!FAILED!!! ${address}`);
           logger.info(result);
+
+          telegrambot.sendMessage(CHAT_ID, `[AIRDROP][FAILED] 2FCT ${address} ${result}`, {
+            disable_web_page_preview: true,
+          });
         } else {
           await this.writeResult(address, result.transactionHash);
-
           logger.info(`🚀[AIRDROP] ${address} : ${result.transactionHash}`);
+
+          telegrambot.sendMessage(
+            CHAT_ID,
+            `[AIRDROP][SUCCESS] 2FCT ${address}\n${EXPLORER_HOST}/transactions/${result.transactionHash}`,
+            {
+              disable_web_page_preview: true,
+            }
+          );
         }
 
         logger.info(`🚀[AIRDROP] SEND END ${address}`);
