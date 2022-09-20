@@ -46,7 +46,7 @@ class AirdropScheduler {
           logger.info(`🚀[AIRDROP] !!!FAILED!!! ${address}`);
           logger.info(result);
 
-          telegrambot.sendMessage(CHAT_ID, `[AIRDROP][FAILED] 2FCT ${address} ${result}`, {
+          telegrambot.sendMessage(CHAT_ID, `[AIRDROP][FAILED] 2FCT ${address} ${JSON.stringify(result)}`, {
             disable_web_page_preview: true,
           });
         } else {
