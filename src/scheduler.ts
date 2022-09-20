@@ -17,7 +17,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN!;
 const CHAT_ID = process.env.CHAT_ID!;
 const EXPLORER_HOST = process.env.EXPLORER_HOST!;
 
-const telegrambot = new TelegramBot(BOT_TOKEN, { polling: true });
+const telegrambot = new TelegramBot(BOT_TOKEN, { polling: false });
 
 class AirdropScheduler {
   constructor(
