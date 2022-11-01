@@ -14,6 +14,7 @@ import {
   AIRDROP_RESULT,
   AIRDROP_MESSAGE,
   STATION_IDENTITY,
+  EXPIRED_EVENT,
 } from '../constants/airdrop';
 
 class AirdropService {
@@ -61,20 +62,24 @@ class AirdropService {
 
   public async initAirdropQR(): Promise<void> {
     try {
-      const redisData = await this.storeService.client.keys(`${REQUEST_PREFIX}*`);
-
-      if (redisData.length > 0) {
-        this.currentRequestKey = redisData[0].replace(`${REQUEST_PREFIX}`, '');
+      if (EXPIRED_EVENT) {
+        this.currentRequestKey = 'EXPIRED';
       } else {
-        const message: string = v4();
-        const info: string = AIRDROP_MESSAGE;
-        const session = await this.connectService.connect(PROJECT_SECRET_KEY);
-        const qrcode = await this.connectService.getQRCodeForArbitarySign(session, message, info);
-        const requestKey = qrcode.replace('sign://', '');
+        const redisData = await this.storeService.client.keys(`${REQUEST_PREFIX}*`);
 
-        await this.addRequest(requestKey, message);
+        if (redisData.length > 0) {
+          this.currentRequestKey = redisData[0].replace(`${REQUEST_PREFIX}`, '');
+        } else {
+          const message: string = v4();
+          const info: string = AIRDROP_MESSAGE;
+          const session = await this.connectService.connect(PROJECT_SECRET_KEY);
+          const qrcode = await this.connectService.getQRCodeForArbitarySign(session, message, info);
+          const requestKey = qrcode.replace('sign://', '');
 
-        this.currentRequestKey = requestKey;
+          await this.addRequest(requestKey, message);
+
+          this.currentRequestKey = requestKey;
+        }
       }
     } catch (error) {
       console.log(error);

@@ -9,3 +9,4 @@ export const AIRDROP_AMOUNT = process.env.AIRDROP_AMOUNT!;
 export const STATION_IDENTITY = process.env.STATION_IDENTITY!;
 export const MNEMONIC = process.env.MNEMONIC!;
 export const SECRET = process.env.SECRET!;
+export const EXPIRED_EVENT = process.env.EXPIRED_EVENT!;
